@@ -1,0 +1,21 @@
+{
+  "name": "com.karaskigames.compositeconsole",
+  "version": "0.1.0",
+  "displayName": "Composite Console",
+  "description": "Debugging tool for Unity",
+  "unity": "2022.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://github.com/bjkarasek/composite-console-unity",
+  "changelogUrl": "https://github.com/bjkarasek/composite-console-unity",
+  "licensesUrl": "https://github.com/bjkarasek/composite-console-unity/blob/main/LICENSE",
+  "keywords": [
+    "unity",
+    "dependency-injection",
+    "architecture"
+  ],
+  "author": {
+    "name": "Bartek Karasek",
+    "email": "bartkarasek@gmail.com",
+    "url": "https://github.com/bjkarasek/composite-console-unity"
+  }
+}
