@@ -9,6 +9,7 @@ namespace CompositeConsole
     {
         private Dictionary<MonoBehaviour, HierarchyNode> _monoBehaviourDebugObjects = new();
         private Dictionary<GameObject, HierarchyNode> _debugGameObjects = new();
+        private List<MonoBehaviour> _subBehaviours = new();
         
         public List<HierarchyNode> BuildHierarchy()
         {
@@ -17,6 +18,7 @@ namespace CompositeConsole
             var allMonoBehaviours = Object.FindObjectsOfType<MonoBehaviour>(true);
             _monoBehaviourDebugObjects.Clear();
             _debugGameObjects.Clear();
+            _subBehaviours.Clear();
             
             foreach (var monoBehaviour in allMonoBehaviours)
             {
@@ -28,6 +30,10 @@ namespace CompositeConsole
                     _monoBehaviourDebugObjects.TryAdd(monoBehaviour, node);
                     node.GameObject = go;
                     node.Behaviours.Add(monoBehaviour);
+                }
+                else if (monoBehaviour is IDebugSubBehaviour)
+                {
+                    _subBehaviours.Add(monoBehaviour);
                 }
             }
 
@@ -50,6 +56,27 @@ namespace CompositeConsole
                 else
                 {
                     result.Add(node);
+                }
+            }
+
+            foreach (var subBehaviour in _subBehaviours)
+            {
+                var parent = subBehaviour.transform.parent;
+                HierarchyNode parentNode = null;
+                while (parent != null)
+                {
+                    var parentGo = parent.gameObject;
+                    if (_debugGameObjects.TryGetValue(parentGo, out parentNode)) break;
+                    parent = parent.parent;
+                }
+
+                if (parentNode != null)
+                {
+                    parentNode.Behaviours.Add(subBehaviour);
+                }
+                else
+                {
+                    Debug.LogWarning($"{subBehaviour.name} is {nameof(IDebugSubBehaviour)} but has no parent!");
                 }
             }
 
