@@ -46,6 +46,7 @@ namespace CompositeConsole
         protected override void OnActivate()
         {
             RefreshScrollContent();
+            Subscribe(_logCatchController.OnLogsChanged, RefreshScrollContent);
         }
 
         protected override void OnRefresh()

@@ -69,20 +69,20 @@ MonoBehaviour:
   SelectedTextColor: {r: 0.9607844, g: 0.96470594, b: 0.9803922, a: 1}
   LogSprites:
   - LogType: 0
-    Sprite: {fileID: 21300000, guid: ae941bb1e0d681a4e815c7f81a3697ce, type: 3}
-    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    Sprite: {fileID: 21300000, guid: a103fab813ac515488a0a360c18cd9b2, type: 3}
+    IconColor: {r: 1, g: 1, b: 1, a: 1}
     BackgroundColor: {r: 0.7607843, g: 0.21176471, b: 0.08627451, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     HoveredBackgroundColor: {r: 0.9098039, g: 0.25490198, b: 0.09411765, a: 1}
   - LogType: 1
-    Sprite: {fileID: 21300000, guid: ae941bb1e0d681a4e815c7f81a3697ce, type: 3}
-    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    Sprite: {fileID: 21300000, guid: a103fab813ac515488a0a360c18cd9b2, type: 3}
+    IconColor: {r: 1, g: 1, b: 1, a: 1}
     BackgroundColor: {r: 0.7607844, g: 0.21176472, b: 0.08627451, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     HoveredBackgroundColor: {r: 0.909804, g: 0.25490198, b: 0.09411766, a: 1}
   - LogType: 2
-    Sprite: {fileID: 21300000, guid: ae941bb1e0d681a4e815c7f81a3697ce, type: 3}
-    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    Sprite: {fileID: 21300000, guid: 062287c82a29ee1419b17e50a0ec0b4f, type: 3}
+    IconColor: {r: 1, g: 1, b: 1, a: 1}
     BackgroundColor: {r: 0.88235295, g: 0.69411767, b: 0.17254902, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     HoveredBackgroundColor: {r: 0.9843137, g: 0.77254903, b: 0.19215687, a: 1}
@@ -93,8 +93,8 @@ MonoBehaviour:
     TextColor: {r: 0.9607844, g: 0.96470594, b: 0.9803922, a: 1}
     HoveredBackgroundColor: {r: 0.26666668, g: 0.2627451, b: 0.2627451, a: 1}
   - LogType: 4
-    Sprite: {fileID: 21300000, guid: ae941bb1e0d681a4e815c7f81a3697ce, type: 3}
-    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    Sprite: {fileID: 21300000, guid: a103fab813ac515488a0a360c18cd9b2, type: 3}
+    IconColor: {r: 1, g: 1, b: 1, a: 1}
     BackgroundColor: {r: 0.7607844, g: 0.21176472, b: 0.08627451, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     HoveredBackgroundColor: {r: 0.909804, g: 0.25490198, b: 0.09411766, a: 1}

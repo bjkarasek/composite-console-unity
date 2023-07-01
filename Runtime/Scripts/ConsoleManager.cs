@@ -25,6 +25,8 @@ namespace CompositeConsole
         public event Action OnConsoleOpened = delegate { };
         public event Action OnConsoleClosed = delegate { };
 
+        [SerializeField] private ConsoleData Data;
+        
         [SerializeField] private Button ExitButton;
         [SerializeField] private ConsoleViewManager ConsoleViewManager;
         
@@ -32,7 +34,9 @@ namespace CompositeConsole
 
         protected override void OnInstall(DependencyInjectionContainer container)
         {
+            BindChild(Data);
             InstallChild(ConsoleViewManager, LifecycleFlags.WithoutActivate);
+            InstallChild(new ShowLogsOnErrorController(), bindingMode: BindingMode.NonInjectable);
         }
 
         protected override void OnInitialize()
