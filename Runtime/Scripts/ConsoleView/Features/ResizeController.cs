@@ -12,13 +12,13 @@ namespace CompositeConsole
         private string ConsoleViewIsMaximizedPrefKey = "CONSOLE_WindowIsMaximizedPrefKey";
         private float Height
         {
-            get => PlayerPrefs.GetFloat(ConsoleViewHeightPrefKey);
+            get => PlayerPrefs.GetFloat(ConsoleViewHeightPrefKey, Screen.height / 2f);
             set => PlayerPrefs.SetFloat(ConsoleViewHeightPrefKey, value);
         }
 
         private bool IsMaximized
         {
-            get => PlayerPrefs.GetInt(ConsoleViewIsMaximizedPrefKey) == 1;
+            get => PlayerPrefs.GetInt(ConsoleViewIsMaximizedPrefKey, 0) == 1;
             set => PlayerPrefs.SetInt(ConsoleViewIsMaximizedPrefKey, value ? 1 : 0);
         }
         
