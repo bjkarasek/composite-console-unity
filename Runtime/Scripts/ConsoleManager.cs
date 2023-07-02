@@ -1,6 +1,7 @@
 ﻿using System;
 using CompositeArchitecture;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace CompositeConsole
@@ -25,8 +26,12 @@ namespace CompositeConsole
         public event Action OnConsoleOpened = delegate { };
         public event Action OnConsoleClosed = delegate { };
 
-        [SerializeField] private ConsoleData Data;
+        [FormerlySerializedAs("settings")]
+        [FormerlySerializedAs("Data")]
+        [Header("Settings")]
+        [SerializeField] private ConsoleSettings Settings;
         
+        [Header("References")]
         [SerializeField] private Button ExitButton;
         [SerializeField] private ConsoleViewManager ConsoleViewManager;
         
@@ -34,7 +39,7 @@ namespace CompositeConsole
 
         protected override void OnInstall(DependencyInjectionContainer container)
         {
-            BindChild(Data);
+            BindChild(Settings);
             InstallChild(ConsoleViewManager, LifecycleFlags.WithoutActivate);
             InstallChild(new ShowLogsOnErrorController(), bindingMode: BindingMode.NonInjectable);
         }
