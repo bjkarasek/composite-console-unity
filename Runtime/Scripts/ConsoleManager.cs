@@ -29,7 +29,7 @@ namespace CompositeConsole
         [FormerlySerializedAs("settings")]
         [FormerlySerializedAs("Data")]
         [Header("Settings")]
-        [SerializeField] private ConsoleSettings Settings;
+        [SerializeField] public ConsoleSettings Settings;
         
         [Header("References")]
         [SerializeField] private Button ExitButton;
