@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using CompositeArchitecture;
 using TMPro;
@@ -16,7 +17,8 @@ namespace CompositeConsole
         [SerializeField] private Button InvokeButton;
         [SerializeField] private RectTransform Container;
         [SerializeField] private RectTransform ParametersContainer;
-        
+        [SerializeField] private TextMeshProUGUI InfoText;
+
         [SerializeField] private CompositeSpawner<MethodParameterInputFieldView> ParameterViewSpawner;
         [SerializeField] private CompositeSpawner<MethodParameterEnumView> EnumViewSpawner;
 
@@ -27,9 +29,10 @@ namespace CompositeConsole
         private ParameterInfo[] _parameterInfos;
 
         private float ParameterHeight = 25;
-        private const float OtherElementsHeight = 50;
-        private const float Margin = 15;
-        private float ParametersContainerHeight => ParameterHeight * _parameterInfos.Length;
+        private const float OtherElementsHeight = 35;
+        private const float Margin = 30;
+        private float ParametersContainerHeight => ParameterHeight * _parameterInfos.Length + InfoTextHeight;
+        private float InfoTextHeight => InfoText.gameObject.activeSelf ? Mathf.Max(0, InfoText.textBounds.max.y - InfoText.textBounds.min.y + 10) : 0;
         
         public void BeforeInstall(MonoBehaviour classInstance, MethodInfo methodInfo, ParameterInfo[] parameterInfos)
         {
@@ -72,7 +75,19 @@ namespace CompositeConsole
 
         private void SetupParameters()
         {
-            ParametersContainer.sizeDelta = new Vector2(ParametersContainer.sizeDelta.x, 25 * ParametersContainerHeight);
+            ParametersContainer.sizeDelta = new Vector2(ParametersContainer.sizeDelta.x, ParameterHeight * ParametersContainerHeight);
+            Container.sizeDelta = new Vector2(Container.sizeDelta.x, ParametersContainerHeight + OtherElementsHeight + Margin);
+            
+            var infoText = GetAttributeText(_methodInfo);
+            if (infoText != "")
+            {
+                InfoText.gameObject.SetActive(true);
+                InfoText.SetText(infoText);
+            }
+            else
+            {
+                InfoText.gameObject.SetActive(false);
+            }
             
             foreach (var parameter in _parameterInfos)
             {
@@ -89,6 +104,28 @@ namespace CompositeConsole
                     _parameterHolders.Add(parameterView);
                 }
             }
+        }
+
+        protected override void OnRefresh()
+        {
+            if (InfoText.gameObject.activeSelf)
+            {
+                var stacktraceHeight = Mathf.Max(0, InfoText.textBounds.max.y - InfoText.textBounds.min.y + 10);
+                InfoText.rectTransform.sizeDelta = new Vector2(InfoText.rectTransform.sizeDelta.x, stacktraceHeight);
+            }
+            
+            ParametersContainer.sizeDelta = new Vector2(ParametersContainer.sizeDelta.x, ParameterHeight * ParametersContainerHeight);
+            Container.sizeDelta = new Vector2(Container.sizeDelta.x, ParametersContainerHeight + OtherElementsHeight + Margin);
+        }
+
+        private static string GetAttributeText(MemberInfo member)
+        {
+            const bool includeInherited = false;
+            var attribute = (DebugMethodAttribute)member
+                .GetCustomAttributes(typeof(DebugMethodAttribute), includeInherited).FirstOrDefault();
+            Debug.Assert(attribute != null, $"{nameof(DebugMethodAttribute)} should not be null!");
+
+            return attribute.Info;
         }
 
         protected override void OnDeactivate()

@@ -6,7 +6,7 @@ namespace CompositeConsole
 {
     public class HierarchyNode
     {
-        public string Name => Scene.HasValue ? Scene.Value.name : Behaviours[0].gameObject.name;
+        public string Name => Scene.HasValue ? Scene.Value.name : GetBehaviourName();
 
         public GameObject GameObject;
         public Scene? Scene;
@@ -17,6 +17,15 @@ namespace CompositeConsole
 
         public DebugHierarchyElementView View;
 
+        private MonoBehaviour RootBehaviour => Behaviours[0];
+        
+        private string GetBehaviourName()
+        {
+            return RootBehaviour is IDebugBehaviourNamed behaviourNamed
+                ? behaviourNamed.DebugHierarchyName
+                : GameObject.name;
+        }
+        
         public int CalculateDepth()
         {
             return Parent == null ? 0 : 1 + Parent.CalculateDepth();
