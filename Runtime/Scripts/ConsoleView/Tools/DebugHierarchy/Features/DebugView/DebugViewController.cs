@@ -43,7 +43,7 @@ namespace CompositeConsole
             if (_representedElement != null)
             {
                 ResetDisplay();
-                ObjectNameText.SetText($"{_representedElement.Name}");qq
+                ObjectNameText.SetText($"{_representedElement.Name}");
                 SetupMethods();
             }
         }
