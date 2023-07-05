@@ -77,7 +77,7 @@ namespace CompositeConsole
             _spawnedHierarchyElements.Add(element, representedObject);
             if (representedObject != null)
             {
-                element.Text.text = $"{representedObject.Name}";
+                element.Text.SetText($"{representedObject.Name}");
             }
 
             UpdateContentHeight();

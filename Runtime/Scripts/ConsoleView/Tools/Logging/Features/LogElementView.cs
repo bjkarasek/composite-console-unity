@@ -18,6 +18,8 @@ namespace CompositeConsole
         
         [SerializeField] private Image BackgroundImage;
         [SerializeField] private Image IconImage;
+        [SerializeField] private TextMeshProUGUI FrameText;
+        [SerializeField] private TextMeshProUGUI TimeText;
         [SerializeField] private TextMeshProUGUI LogTypeText;
         [SerializeField] private TextMeshProUGUI LogText;
         [SerializeField] private Color SelectedBackgroundColor;
@@ -36,6 +38,21 @@ namespace CompositeConsole
             IconImage.sprite = _logSetup.Sprite;
             IconImage.color = _logSetup.IconColor;
             var typeText = logInfo.Type.ToString();
+
+            var frameString = logInfo.Frame.ToString();
+            if (FrameText.text != frameString)
+            {
+                FrameText.SetText(frameString);
+            }
+            
+            var myDate = new DateTime(logInfo.TimeTicks);
+            var timeText = myDate.ToString("HH:mm:ss");
+
+            if (TimeText.text != timeText)
+            {
+                TimeText.SetText(timeText);
+            }
+            
             if (LogTypeText.text != typeText)
             {
                 LogTypeText.SetText(typeText);
@@ -90,12 +107,16 @@ namespace CompositeConsole
             if (_isSelected)
             {
                 BackgroundImage.color = SelectedBackgroundColor;
+                FrameText.color = SelectedTextColor;
+                TimeText.color = SelectedTextColor;
                 LogTypeText.color = SelectedTextColor;
                 LogText.color = SelectedTextColor;
             }
             else if (_isHovered)
             {
                 BackgroundImage.color = _logSetup.HoveredBackgroundColor;
+                FrameText.color = _logSetup.TextColor;
+                TimeText.color = _logSetup.TextColor;
                 LogTypeText.color = _logSetup.TextColor;
                 LogText.color = _logSetup.TextColor;
             }
@@ -110,6 +131,8 @@ namespace CompositeConsole
                     Debug.Log($"{name}", this);
                 }
                 BackgroundImage.color = _logSetup.BackgroundColor;
+                FrameText.color = _logSetup.TextColor;
+                TimeText.color = _logSetup.TextColor;
                 LogTypeText.color = _logSetup.TextColor;
                 LogText.color = _logSetup.TextColor;
             }

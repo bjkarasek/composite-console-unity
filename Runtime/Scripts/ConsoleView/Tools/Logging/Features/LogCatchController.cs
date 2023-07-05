@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CompositeArchitecture;
 using UnityEngine;
 
@@ -58,7 +59,9 @@ namespace CompositeConsole
             {
                 Condition = condition,
                 Stacktrace = stacktrace,
-                Type = type
+                Type = type,
+                Frame = Time.frameCount,
+                TimeTicks = DateTime.Now.Ticks,
             };
             
             for (var i = 0; i < MaxMask; i++)
@@ -97,6 +100,8 @@ namespace CompositeConsole
         {
             public string Condition;
             public string Stacktrace;
+            public int Frame;
+            public long TimeTicks;
             public LogType Type;
         }
     }

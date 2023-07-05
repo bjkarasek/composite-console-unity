@@ -43,7 +43,7 @@ namespace CompositeConsole
             if (_representedElement != null)
             {
                 ResetDisplay();
-                ObjectNameText.SetText($"{_representedElement.Name}");
+                ObjectNameText.SetText($"{_representedElement.Name}");qq
                 SetupMethods();
             }
         }
@@ -75,9 +75,9 @@ namespace CompositeConsole
                     }
                 }
             }
-
-            ContentRT.sizeDelta = new Vector2(ContentRT.sizeDelta.x, contentHeight + ContentMargin);
             
+            ContentRT.sizeDelta = new Vector2(ContentRT.sizeDelta.x, contentHeight + ContentMargin);
+
             bool HasValidParameters(ParameterInfo [] parameters)
             {
                 var areValid = true;
@@ -91,7 +91,18 @@ namespace CompositeConsole
                 return areValid;
             }
         }
-        
+
+        protected override void OnRefresh()
+        {
+            var contentHeight = 0f;
+            foreach (var method in MethodViewSpawner.Elements)
+            {
+                contentHeight += method.ElementHeight + VerticalLayoutGroup.spacing;
+            }
+            
+            ContentRT.sizeDelta = new Vector2(ContentRT.sizeDelta.x, contentHeight + ContentMargin);
+        }
+
         private static bool MethodsHasAttribute(MemberInfo member)
         {
             const bool includeInherited = false;
