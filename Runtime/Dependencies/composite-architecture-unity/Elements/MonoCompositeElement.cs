@@ -80,9 +80,9 @@ namespace CompositeArchitecture
 
         public void Activate()
         {
+            gameObject.SetActive(true);
             OnActivate();
             _subElementsController.Activate();
-            gameObject.SetActive(true);
             _state.IsActive = true;
         }
 

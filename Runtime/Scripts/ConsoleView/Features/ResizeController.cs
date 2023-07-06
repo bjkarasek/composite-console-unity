@@ -1,4 +1,5 @@
-﻿using CompositeArchitecture;
+﻿using System.Runtime.CompilerServices;
+using CompositeArchitecture;
 using UnityEngine;
 
 namespace CompositeConsole
@@ -10,6 +11,9 @@ namespace CompositeConsole
 
         private string ConsoleViewHeightPrefKey = "CONSOLE_WindowHeightPrefKey";
         private string ConsoleViewIsMaximizedPrefKey = "CONSOLE_WindowIsMaximizedPrefKey";
+
+        private Canvas _canvas;
+        private RectTransform _canvasRT;
         private float Height
         {
             get => PlayerPrefs.GetFloat(ConsoleViewHeightPrefKey, Screen.height / 2f);
@@ -30,6 +34,12 @@ namespace CompositeConsole
             InstallChild(ResizeManualController, bindingMode: BindingMode.NonInjectable);
         }
 
+        protected override void OnInject()
+        {
+            Resolve(out _canvas);
+            _canvasRT = _canvas.GetComponent<RectTransform>();
+        }
+
         protected override void OnActivate()
         {
             ResizeManualController.SetInitialPosition(new Vector2(0, Height * Screen.height));
@@ -45,13 +55,24 @@ namespace CompositeConsole
                 Contract();
             }
         }
-        
+
+        protected override void OnRefresh()
+        {
+            if (IsMaximized == false)
+            {
+                Resize(new Vector2(0, Height * Screen.height));
+            }
+        }
+
         public void Maximize()
         {
             IsMaximized = true;
             RectTransform.anchorMin = new Vector2(0, 0);
             RectTransform.anchorMax = new Vector2(1, 1);
-            ResizeManualController.Deactivate();
+            if (ResizeManualController.State.IsActive)
+            {
+                ResizeManualController.Deactivate();
+            }
         }
 
         public void Contract()
@@ -59,7 +80,10 @@ namespace CompositeConsole
             IsMaximized = false;
             RectTransform.anchorMin = new Vector2(0, Height);
             RectTransform.anchorMax = new Vector2(1, 1);
-            ResizeManualController.Activate();
+            if (ResizeManualController.State.IsActive == false)
+            {
+                ResizeManualController.Activate();
+            }
         }
         
         private void Resize(Vector2 mousePosition)

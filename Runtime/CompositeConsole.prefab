@@ -1333,6 +1333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae4478a998242c483292f5253e979f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Canvas: {fileID: 6090897775886984460}
   ToolsManager: {fileID: 1022792541075185681}
   TopToolbarManager: {fileID: 7668186153185796613}
   ResizeController: {fileID: 4484055617061865067}
@@ -3423,6 +3424,7 @@ MonoBehaviour:
   ResizingColor: {r: 0.1462264, g: 0.42907164, b: 1, a: 1}
   MoveX: 0
   MoveY: 1
+  Container: {fileID: 4000179390426366010}
 --- !u!1 &9040688875534307380
 GameObject:
   m_ObjectHideFlags: 0

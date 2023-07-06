@@ -93,6 +93,9 @@ MonoBehaviour:
   NormalColor: {r: 0.10980392, g: 0.10980392, b: 0.10980392, a: 1}
   HoveringColor: {r: 0.32941177, g: 0.5411765, b: 0.9686275, a: 1}
   ResizingColor: {r: 0.1462264, g: 0.42907164, b: 1, a: 1}
+  MoveX: 0
+  MoveY: 0
+  Container: {fileID: 5988340674785440126}
 --- !u!1 &1677361800576268418
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,3 +378,4 @@ MonoBehaviour:
   RightRectTransform: {fileID: 8485219872320105911}
   SeparatorRectTransform: {fileID: 6778391864449905106}
   ResizeManualController: {fileID: 233521726914866000}
+  UniqueId: 0
