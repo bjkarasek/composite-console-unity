@@ -221,8 +221,7 @@ MonoBehaviour:
   m_text: Option A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 96a80bfa7f9214b49bba3c2d19937b76, type: 2}
-  m_sharedMaterial: {fileID: -2314554518441576007, guid: 96a80bfa7f9214b49bba3c2d19937b76,
-    type: 2}
+  m_sharedMaterial: {fileID: -2314554518441576007, guid: 96a80bfa7f9214b49bba3c2d19937b76, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -662,9 +661,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Option A
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 96a80bfa7f9214b49bba3c2d19937b76, type: 2}
-  m_sharedMaterial: {fileID: -2314554518441576007, guid: 96a80bfa7f9214b49bba3c2d19937b76,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1081,7 +1079,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 45
   m_Viewport: {fileID: 163402910328808747}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1939198039111377100}
@@ -1372,7 +1370,7 @@ RectTransform:
   - {fileID: 8600299365490252333}
   - {fileID: 1502569132007418453}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
