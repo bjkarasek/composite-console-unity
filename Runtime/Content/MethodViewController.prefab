@@ -856,3 +856,7 @@ MonoBehaviour:
     ParentTransform: {fileID: 9102136414598752994}
     Prefab: {fileID: 4822369354801015863, guid: 58753dad27dd8a5409315256c8c05917, type: 3}
     Elements: []
+  BoolViewSpawner:
+    ParentTransform: {fileID: 9102136414598752994}
+    Prefab: {fileID: 5079073721013443717, guid: 92505ecb704c3c84fa8d36370e3e2521, type: 3}
+    Elements: []

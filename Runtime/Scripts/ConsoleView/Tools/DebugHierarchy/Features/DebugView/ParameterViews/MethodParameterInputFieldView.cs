@@ -20,7 +20,7 @@ namespace CompositeConsole
         
         public static bool IsHandled(Type parameterType)
         {
-            return (parameterType.IsValueType && parameterType.IsPrimitive) || parameterType == typeof(string);
+            return (parameterType.IsValueType && parameterType.IsPrimitive && parameterType != typeof(bool)) || parameterType == typeof(string);
         }
         
         public void Setup(ParameterInfo parameterInfo)

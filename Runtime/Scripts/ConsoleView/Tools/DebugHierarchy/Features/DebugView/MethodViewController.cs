@@ -21,6 +21,7 @@ namespace CompositeConsole
 
         [SerializeField] private CompositeSpawner<MethodParameterInputFieldView> ParameterViewSpawner;
         [SerializeField] private CompositeSpawner<MethodParameterEnumView> EnumViewSpawner;
+        [SerializeField] private CompositeSpawner<MethodParameterBoolView> BoolViewSpawner;
 
         private List<IParameterHolder> _parameterHolders = new();
         
@@ -45,6 +46,7 @@ namespace CompositeConsole
         {
             InstallChild(ParameterViewSpawner);
             InstallChild(EnumViewSpawner);
+            InstallChild(BoolViewSpawner);
         }
 
         protected override void OnActivate()
@@ -69,8 +71,9 @@ namespace CompositeConsole
 
         public bool IsParameterTypeValid (Type parameterType)
         {
-            return (MethodParameterInputFieldView.IsHandled(parameterType)) ||
-                (MethodParameterEnumView.IsHandled(parameterType));
+            return MethodParameterInputFieldView.IsHandled(parameterType) ||
+                   MethodParameterEnumView.IsHandled(parameterType) ||
+                   MethodParameterBoolView.IsHandled(parameterType);
         }
 
         private void SetupParameters()
@@ -100,6 +103,12 @@ namespace CompositeConsole
                 else if (MethodParameterEnumView.IsHandled(parameter.ParameterType))
                 {
                     var parameterView = EnumViewSpawner.Spawn();
+                    parameterView.Setup(parameter);
+                    _parameterHolders.Add(parameterView);
+                }
+                else if (MethodParameterBoolView.IsHandled(parameter.ParameterType))
+                {
+                    var parameterView = BoolViewSpawner.Spawn();
                     parameterView.Setup(parameter);
                     _parameterHolders.Add(parameterView);
                 }
