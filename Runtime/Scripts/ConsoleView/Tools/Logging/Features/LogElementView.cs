@@ -39,7 +39,7 @@ namespace CompositeConsole
             IconImage.color = _logSetup.IconColor;
             var typeText = logInfo.Type.ToString();
 
-            var frameString = logInfo.Frame.ToString();
+            var frameString = logInfo.Frame == -1 ? "-" : logInfo.Frame.ToString();
             if (FrameText.text != frameString)
             {
                 FrameText.SetText(frameString);

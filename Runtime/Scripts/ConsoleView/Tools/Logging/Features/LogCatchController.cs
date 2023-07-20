@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading;
 using CompositeArchitecture;
 using UnityEngine;
 
@@ -13,10 +15,13 @@ namespace CompositeConsole
         public int ErrorsCount { get; private set; }
         public int CurrentMask = 0;
         public List<LogInfo> LogInfos => _logInfos[CurrentMask];
-        
         private List<LogInfo>[] _logInfos;
 
         private const int MaxMask = 8;
+
+        private Thread _mainThread;
+
+        private ConcurrentQueue<(string condition, string stacktrace, LogType type)> _otherThreadsQueue = new();
 
         protected override void OnInstall(DependencyInjectionContainer diContainer)
         {
@@ -30,6 +35,7 @@ namespace CompositeConsole
         protected override void OnInitialize()
         {
             Application.logMessageReceivedThreaded += LogMessageReceivedThreaded;
+            _mainThread = Thread.CurrentThread;
         }
 
         public int GetLogsAmount(int shift)
@@ -49,6 +55,26 @@ namespace CompositeConsole
 
         private void LogMessageReceivedThreaded(string condition, string stacktrace, LogType type)
         {
+            if (IsMainThread())
+            {
+                RegisterMessageReceived(condition, stacktrace, type);
+            }
+            else
+            {
+                _otherThreadsQueue.Enqueue((condition, stacktrace, type));
+            }
+        }
+
+        protected override void OnRefresh()
+        {
+            while (_otherThreadsQueue.Count > 0 && _otherThreadsQueue.TryDequeue(out var args))
+            {
+                RegisterMessageReceived(args.condition, args.stacktrace, args.type, false);
+            }
+        }
+
+        private void RegisterMessageReceived(string condition, string stacktrace, LogType type, bool fromMainThread = true)
+        {
             if (type is LogType.Error or LogType.Exception or LogType.Assert)
             {
                 ErrorsCount++;
@@ -60,7 +86,7 @@ namespace CompositeConsole
                 Condition = condition,
                 Stacktrace = stacktrace,
                 Type = type,
-                Frame = Time.frameCount,
+                Frame = fromMainThread ? Time.frameCount : -1,
                 TimeTicks = DateTime.Now.Ticks,
             };
             
@@ -71,6 +97,11 @@ namespace CompositeConsole
                     _logInfos[i].Add(logInfo);
                 }
             }
+        }
+
+        private bool IsMainThread()
+        {
+            return Thread.CurrentThread == _mainThread;
         }
 
         private bool IsInMask(LogType logType, int mask)
