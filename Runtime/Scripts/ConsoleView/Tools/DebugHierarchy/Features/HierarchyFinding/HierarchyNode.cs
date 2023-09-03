@@ -11,13 +11,14 @@ namespace CompositeConsole
         public GameObject GameObject;
         public Scene? Scene;
         public List<MonoBehaviour> Behaviours = new();
+        public List<object> CustomDebugObjects = new();
         
         public HierarchyNode Parent;
         public List<HierarchyNode> Children = new();
 
         public DebugHierarchyElementView View;
 
-        private MonoBehaviour RootBehaviour => Behaviours[0];
+        public MonoBehaviour RootBehaviour => Behaviours[0];
         
         private string GetBehaviourName()
         {

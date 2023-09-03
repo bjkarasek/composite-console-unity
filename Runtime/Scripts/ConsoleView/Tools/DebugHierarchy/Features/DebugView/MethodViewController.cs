@@ -25,7 +25,7 @@ namespace CompositeConsole
 
         private List<IParameterHolder> _parameterHolders = new();
         
-        private MonoBehaviour _classInstance;
+        private object _classInstance;
         private MethodInfo _methodInfo;
         private ParameterInfo[] _parameterInfos;
 
@@ -35,7 +35,7 @@ namespace CompositeConsole
         private float ParametersContainerHeight => ParameterHeight * _parameterInfos.Length + InfoTextHeight;
         private float InfoTextHeight => InfoText.gameObject.activeSelf ? Mathf.Max(0, InfoText.textBounds.max.y - InfoText.textBounds.min.y + 10) : 0;
         
-        public void BeforeInstall(MonoBehaviour classInstance, MethodInfo methodInfo, ParameterInfo[] parameterInfos)
+        public void BeforeInstall(object classInstance, MethodInfo methodInfo, ParameterInfo[] parameterInfos)
         {
             _classInstance = classInstance;
             _methodInfo = methodInfo;

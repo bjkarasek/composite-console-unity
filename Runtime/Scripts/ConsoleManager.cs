@@ -34,6 +34,8 @@ namespace CompositeConsole
         [Header("References")]
         [SerializeField] private Button ExitButton;
         [SerializeField] private ConsoleViewManager ConsoleViewManager;
+
+        private CustomObjectRegistryController _customObjectRegistryController = new();
         
         private bool IsOpen => ConsoleViewManager.State.IsActive;
 
@@ -42,6 +44,7 @@ namespace CompositeConsole
             BindChild(Settings);
             InstallChild(ConsoleViewManager, LifecycleFlags.WithoutActivate);
             InstallChild(new ShowLogsOnErrorController(), bindingMode: BindingMode.NonInjectable);
+            InstallChild(_customObjectRegistryController);
         }
 
         protected override void OnInitialize()
@@ -85,6 +88,16 @@ namespace CompositeConsole
                 ConsoleViewManager.Deactivate();
                 OnConsoleClosed.Invoke();
             }            
+        }
+
+        public void RegisterDebugObject(IDebugBehaviour parent, object obj)
+        {
+            _customObjectRegistryController.RegisterDebugObject(parent, obj);
+        }
+
+        public void UnregisterDebugObject(IDebugBehaviour parent, object obj)
+        {
+            _customObjectRegistryController.UnregisterDebugObject(parent, obj);
         }
 
         protected override void OnDeinitialize()

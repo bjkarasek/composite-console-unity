@@ -11,6 +11,13 @@ namespace CompositeConsole
         private Dictionary<GameObject, HierarchyNode> _debugGameObjects = new();
         private List<MonoBehaviour> _subBehaviours = new();
         
+        private CustomObjectRegistryController _customObjectRegistryController;
+
+        protected override void OnInject()
+        {
+            Resolve(out _customObjectRegistryController);
+        }
+
         public List<HierarchyNode> BuildHierarchy()
         {
             var result = new List<HierarchyNode>();
@@ -23,13 +30,14 @@ namespace CompositeConsole
             foreach (var monoBehaviour in allMonoBehaviours)
             {
                 var go = monoBehaviour.gameObject;
-                if (monoBehaviour is IDebugBehaviour)
+                if (monoBehaviour is IDebugBehaviour debugBehaviour)
                 {
                     _debugGameObjects.TryAdd(go, new HierarchyNode());
                     var node = _debugGameObjects[go];
                     _monoBehaviourDebugObjects.TryAdd(monoBehaviour, node);
                     node.GameObject = go;
                     node.Behaviours.Add(monoBehaviour);
+                    node.CustomDebugObjects = _customObjectRegistryController.GetCustomObjects(debugBehaviour);
                 }
                 else if (monoBehaviour is IDebugSubBehaviour)
                 {

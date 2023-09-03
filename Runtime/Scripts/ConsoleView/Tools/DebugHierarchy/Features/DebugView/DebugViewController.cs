@@ -54,7 +54,19 @@ namespace CompositeConsole
 
             foreach (var behaviour in _representedElement.Behaviours)
             {
-                var methodInfos = behaviour.GetType()
+                SetupMethodsInternal(behaviour);
+            }
+            
+            foreach (var obj in _representedElement.CustomDebugObjects)
+            {
+                SetupMethodsInternal(obj);
+            }
+            
+            ContentRT.sizeDelta = new Vector2(ContentRT.sizeDelta.x, contentHeight + ContentMargin);
+
+            void SetupMethodsInternal(object obj)
+            {
+                var methodInfos = obj.GetType()
                     .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
                 foreach (var method in methodInfos)
@@ -65,7 +77,7 @@ namespace CompositeConsole
                         if (HasValidParameters(parameters))
                         {
                             var methodView = MethodViewSpawner.Spawn(onBeforeInstall:
-                                viewController => viewController.BeforeInstall(behaviour, method, parameters));
+                                viewController => viewController.BeforeInstall(obj, method, parameters));
                             contentHeight += methodView.ElementHeight + VerticalLayoutGroup.spacing;
                         }
                         else
@@ -76,8 +88,6 @@ namespace CompositeConsole
                 }
             }
             
-            ContentRT.sizeDelta = new Vector2(ContentRT.sizeDelta.x, contentHeight + ContentMargin);
-
             bool HasValidParameters(ParameterInfo [] parameters)
             {
                 var areValid = true;
@@ -91,7 +101,7 @@ namespace CompositeConsole
                 return areValid;
             }
         }
-
+        
         protected override void OnRefresh()
         {
             var contentHeight = 0f;
