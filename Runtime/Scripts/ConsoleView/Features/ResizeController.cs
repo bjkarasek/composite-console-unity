@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using CompositeArchitecture;
+﻿using CompositeArchitecture;
 using UnityEngine;
 
 namespace CompositeConsole
@@ -16,7 +15,7 @@ namespace CompositeConsole
         private RectTransform _canvasRT;
         private float Height
         {
-            get => PlayerPrefs.GetFloat(ConsoleViewHeightPrefKey, Screen.height / 2f);
+            get => PlayerPrefs.GetFloat(ConsoleViewHeightPrefKey, 0.5f);
             set => PlayerPrefs.SetFloat(ConsoleViewHeightPrefKey, value);
         }
 
