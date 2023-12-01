@@ -1,6 +1,6 @@
 {
   "name": "com.karaskigames.compositeconsole",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Composite Console",
   "description": "Debugging tool for Unity",
   "unity": "2022.3",

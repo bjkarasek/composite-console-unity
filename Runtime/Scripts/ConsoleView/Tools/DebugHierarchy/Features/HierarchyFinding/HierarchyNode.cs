@@ -6,6 +6,7 @@ namespace CompositeConsole
 {
     public class HierarchyNode
     {
+        public bool Exists => Scene.HasValue || RootBehaviour != null;
         public string Name => Scene.HasValue ? Scene.Value.name : GetBehaviourName();
 
         public GameObject GameObject;

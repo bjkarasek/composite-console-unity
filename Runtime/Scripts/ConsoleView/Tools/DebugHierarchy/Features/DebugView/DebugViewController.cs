@@ -40,9 +40,10 @@ namespace CompositeConsole
 
         private void RefreshDisplay()
         {
-            if (_representedElement != null)
+            ResetDisplay();
+
+            if (_representedElement is { Exists: true })
             {
-                ResetDisplay();
                 ObjectNameText.SetText($"{_representedElement.Name}");
                 SetupMethods();
             }
