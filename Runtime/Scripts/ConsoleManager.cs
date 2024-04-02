@@ -37,7 +37,7 @@ namespace CompositeConsole
 
         private CustomObjectRegistryController _customObjectRegistryController = new();
         
-        private bool IsOpen => ConsoleViewManager.State.IsActive;
+        public bool IsOpen => ConsoleViewManager.State.IsActive;
 
         protected override void OnInstall(DependencyInjectionContainer container)
         {
